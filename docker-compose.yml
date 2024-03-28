@@ -1,0 +1,30 @@
+version: '1.0'
+services:
+  back_end:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - name=value
+
+    container_name: "test-code-web-back-end-qtasnim"
+    ports:
+      - 4500:4500
+    volumes:
+      - '/usr/src/backend'
+    command: "npm run dev"
+
+  db:
+    container_name: "mysql_test_code_web"
+    image: mysql:latest
+    restart: always
+
+    environment:
+      MYSQL_ROOT_PASSWORD: ${PASSWORD_ROOT}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${PASSWORD_USER}
+      MYSQL_PASSWORD: ${PASSWORD_ROOT}
+
+    ports:
+      - 3306:3306
+  
